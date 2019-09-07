@@ -1,0 +1,25 @@
+
+{% extends "layout.html" %}
+{% block content %}
+    <h1 class="mb-3">Les eleves de la classe {{ classe.nom_classe }} ({{ students.total }})</h1>
+    {% for student in students.items %}
+          <div class="media-body">
+           
+            <h2><a class="article-title" href="{{ url_for('student', student_id=student.id) }}">{{ student.Prenom }}</a></h2>
+            <h2>{{ student.Nom }}</h2>
+            <p class="article-content">{{ student.Date_Naissance }}</p>
+          </div>
+        </article>
+    {% endfor %}
+    {% for page_num in students.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if students.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('classe_students', nom_classe=classe.nom_classe, page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('classe_students', nom_classe=classe.nom_classe, page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+{% endblock content %}

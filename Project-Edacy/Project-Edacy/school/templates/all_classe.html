@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for classe in classes.items %}
+        <article class="media content-section">
+          <div class="media-body">
+            <h2><a class="article-title" href="{{ url_for('classe', classe_id=classe.id) }}">{{ classe.nom_classe }}</a></h2>
+            <h3><a class="article-title" href="{{ url_for('classe', classe_id=classe.id) }}">{{ classe.serie }}</a></h3>
+          </div>
+        </article>
+    {% endfor %}
+    {% for page_num in classes.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if classes.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('all_classe', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('all_classe', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+{% endblock content %}

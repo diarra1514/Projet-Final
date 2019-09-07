@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+  <article class="media content-section">
+    
+    <div class="media-body">
+      <div class="article-metadata">
+        {% if current_user.username == 'Diarra fall' %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_student', student_id=student.id) }}">Mettre à jour</a>
+            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Supprimer</button>
+          </div>
+        {% endif %}
+      </div>
+       <h2 class="article-title">{{ student.Prenom }}</h2> 
+       <h2 class="article-title">{{ student.Nom }}</h2>
+       <p class="article-content">{{ student.Date_Naissance }}</p>
+       
+    </div>
+  </article>
+  <!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document"> 
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Voulez vous vraiment supprimer cet eleve</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          <form action="{{ url_for('delete_student', student_id=student.id) }}" method="POST">
+            <input class="btn btn-danger" type="submit" value="Supprimer">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
